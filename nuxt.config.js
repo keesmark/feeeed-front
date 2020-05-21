@@ -31,6 +31,28 @@ export default {
   */
   plugins: [
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'auth/login', method: 'post', propertyName: 'token'
+          },
+          user: {
+            url: 'me', method: 'get', propertyName: 'data'
+          },
+          logout: {
+            url: 'logout', method: 'get'
+          }
+        }
+      }
+    },
+    redirect: {
+      login: '/auth/login',
+      home: '/'
+    }
+  },
   /*
   ** Nuxt.js dev-modules
   */
@@ -41,6 +63,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
   ** vuetify module configuration
@@ -51,6 +75,10 @@ export default {
     theme: {
     }
   },
+
+  axios: {
+    baseURL: 'http://172.16.0.54:80/api/'
+  },
   /*
   ** Build configuration
   */
@@ -58,6 +86,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
+    extractCSS: true,
     extend (config, ctx) {
     }
   }
